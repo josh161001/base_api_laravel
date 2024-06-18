@@ -22,11 +22,11 @@ class RefaccionesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_categoria' => ['required', 'integer'],
-            'id_marca' => ['required', 'integer'],
-            'id_linea' => ['required', 'integer'],
-            'id_clave_sat' => ['required', 'integer'],
-            'modelo' => ['required', 'string'],
+            // 'id_categoria' => ['required', 'integer'],
+            // 'id_marca' => ['required', 'integer'],
+            // 'id_linea' => ['required', 'integer'],
+            // 'id_clave_sat' => ['required', 'integer'],
+            'modelo' => 'required|string|unique:refacciones,modelo',
             'cantidad' => ['required', 'integer'],
             'sku' => ['required', 'string'],
             'informacion' => ['required', 'string'],
@@ -36,18 +36,19 @@ class RefaccionesRequest extends FormRequest
     }
 
 
-    public function message(): array
+    public function messages(): array
     {
         return [
-            'id_categoria.required' => 'La categoria es requerida',
-            'id_categoria.integer' => 'La categoria debe ser un número',
-            'id_marca.required' => 'La marca es requerida',
-            'id_marca.integer' => 'La marca debe ser un número',
-            'id_linea.required' => 'La linea es requerida',
-            'id_linea.integer' => 'La linea debe ser un número',
-            'id_clave_sat.required' => 'La clave sat es requerida',
-            'id_clave_sat.integer' => 'La clave sat debe ser un número',
+            // 'id_categoria.required' => 'La categoria es requerida',
+            // 'id_categoria.integer' => 'La categoria debe ser un número',
+            // 'id_marca.required' => 'La marca es requerida',
+            // 'id_marca.integer' => 'La marca debe ser un número',
+            // 'id_linea.required' => 'La linea es requerida',
+            // 'id_linea.integer' => 'La linea debe ser un número',
+            // 'id_clave_sat.required' => 'La clave sat es requerida',
+            // 'id_clave_sat.integer' => 'La clave sat debe ser un número',
             'modelo.required' => 'El modelo es requerido',
+            'modelo.unique' => 'El modelo ya existe',
             'modelo.string' => 'El modelo debe ser una cadena',
             'cantidad.required' => 'La cantidad es requerida',
             'cantidad.integer' => 'La cantidad debe ser un número',

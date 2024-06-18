@@ -21,7 +21,22 @@ class RefaccionesController extends Controller
 
             return response()->json($refacciones, 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error al obtener las refacciones'], 500);
+            return response()->json(['message' => 'Error al obtener las refacciones', 'error' => $e], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $refaccion = Refacciones::find($id);
+
+            if (!$refaccion) {
+                return response()->json(['message' => 'Refaccion no encontrada'], 404);
+            }
+
+            return response()->json($refaccion, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al obtener la refaccion'], 500);
         }
     }
 
@@ -32,7 +47,7 @@ class RefaccionesController extends Controller
             $refaccion = Refacciones::create($request->all());
             return response()->json($refaccion, 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error al guardar la refaccion'], 500);
+            return response()->json(['message' => 'Error al guardar la refaccion', 'error' => $e], 500);
         }
     }
 
