@@ -26,8 +26,6 @@ class Refacciones extends Model
         'sintomas_fallas',
         'intercambios',
         'estatus',
-        'fecha_cre',
-        'fecha_mod',
     ];
 
 
