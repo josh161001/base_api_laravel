@@ -83,13 +83,15 @@ class AuthController extends Controller
     {
 
         try {
-
+            // Buscar al usuario por su correo
             $user = User::where('correo', $request->correo)->first();
 
+            // Verificar si el usuario existe y si la contraseña es correcta
             if (!$user || !Hash::check($request->contrasena, $user->contrasena)) {
                 return response()->json(['message' => 'Credenciales incorrectas'], 401);
             }
 
+            // Verificar si el correo ha sido verificado
             if ($user->correo_verified_at == null || $user->estatus == 0) {
                 return response()->json(['message' => 'Correo no verificado'], 401);
             }
