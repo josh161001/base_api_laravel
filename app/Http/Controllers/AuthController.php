@@ -42,6 +42,10 @@ class AuthController extends Controller
 
             $query->whereNull('id_padre')->with('subUsuarios')->get();
 
+            if ($query->get()->isEmpty()) {
+                return response()->json(['message' => 'No hay usuarios registrados'], 404);
+            }
+
             return response()->json($query->get());
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al obtener los usuarios', 'error' => $e->getMessage()]);
