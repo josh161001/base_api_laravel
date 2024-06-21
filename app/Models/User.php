@@ -6,10 +6,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +18,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nombre_completo',
+        'correo',
+        'contrasena',
     ];
 
     /**
@@ -28,7 +29,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'contrasena',
         'remember_token',
     ];
 
@@ -40,8 +41,27 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'correo_verified_at' => 'datetime',
+            'contrasena' => 'hashed',
         ];
+    }
+
+
+    // relaciones
+
+    // obtener subUsuarios hijas de usuario
+    public function subUsuarios()
+    {
+        return $this->hasMany(User::class, 'id_padre', 'id')->with('subUsuarios');
+    }
+    // obtener usuario padre
+    public function usuario_padre()
+    {
+        return $this->belongsTo(User::class, 'id_padre', 'id');
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(Roles::class, 'id_rol', 'id');
     }
 }

@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('herramientas')->nullable()->default(null);
             $table->text('sintomas_fallas')->nullable()->default(null);
             $table->text('intercambios')->nullable()->default(null);
+            $table->json('models')->nullable()->default(null);
+            $table->text('position')->nullable()->default(null);
             $table->boolean('estatus')->nullable()->default(0);
             $table->timestamps();
         });

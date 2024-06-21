@@ -19,15 +19,13 @@ class categorias extends Model
     // obtener categorias hijas
     public function subcategorias()
     {
-        return $this->hasMany(categorias::class, 'id_padre', 'id');
+        return $this->hasMany(categorias::class, 'id_padre', 'id')->with('subcategorias');
     }
-
     // obtener categoria padre
     public function categoria_padre()
     {
         return $this->belongsTo(categorias::class, 'id_padre', 'id');
     }
-
     // obtener refacciones de la categoria
     public function refacciones()
     {

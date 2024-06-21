@@ -24,10 +24,10 @@ class Refacciones extends Model
         'descripcion',
         'herramientas',
         'sintomas_fallas',
+        "models",
+        'position',
         'intercambios',
         'estatus',
-        'fecha_cre',
-        'fecha_mod',
     ];
 
 
@@ -49,5 +49,10 @@ class Refacciones extends Model
     public function claves_sat()
     {
         return $this->belongsTo(claves_sat::class, 'id_clave_sat', 'id');
+    }
+
+    public function archivos()
+    {
+        return $this->hasMany(Archivos::class, 'id_refaccion');
     }
 }
