@@ -21,8 +21,6 @@ class RefaccionesController extends Controller
 
             $query = Refacciones::query();
 
-            $query->with('categorias:id,nombre', 'archivos:id,id_refaccion,url_multimedia', 'lineas:id,nombre', 'marcas:id,nombre', 'claves_sat:id,nombre');
-
             // Filtrar por rango de fechas
             if ($request->has('start_date') && $request->has('end_date')) {
                 $start_date = $request->input('start_date');
@@ -36,18 +34,24 @@ class RefaccionesController extends Controller
             if ($request->has('search')) {
                 $search = $request->input('search');
                 $query->where(function ($q) use ($search) {
-                    $q->where('modelo', 'like', "%$search%")
+                    $q->where('modelo ', 'like', "%$search%")
+                        ->orWhere('sku', 'like', "%$search%")
                         ->orWhere('descripcion', 'like', "%$search%");
                 });
             }
 
-            // limite de la consulta
+            // Aplicar límite a la consulta
             if ($request->has('limit')) {
                 $limit = $request->input('limit');
                 $query->limit($limit);
             }
 
             $refacciones = $query->get();
+
+            if ($refacciones->isEmpty()) {
+                return response()->json(['message' => 'No hay refacciones registradas'], 404);
+            }
+
 
             return response()->json($refacciones, 200);
         } catch (\Exception $e) {
