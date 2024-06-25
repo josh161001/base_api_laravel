@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('marcas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->unique()->nullable(false);
+            $table->string('nombre')->nullable();
             $table->timestamps();
         });
     }

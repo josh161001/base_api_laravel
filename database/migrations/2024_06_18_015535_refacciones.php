@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('refacciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_categoria')->nullable()->constrained('categorias')->onDelete('cascade');
-            $table->foreignId('id_marca')->nullable()->constrained('marcas')->onDelete('cascade');
-            $table->foreignId('id_clave_sat')->nullable()->constrained('claves_sat')->onDelete('cascade');
-            $table->foreignId('id_linea')->nullable()->constrained('lineas')->onDelete('cascade');
 
+
+            $table->unsignedBigInteger('id_categoria')->nullable();
+            $table->unsignedBigInteger('id_marca')->nullable();
+            $table->unsignedBigInteger('id_clave_sat')->nullable();
+            $table->unsignedBigInteger('id_linea')->nullable();
             $table->string('modelo')->unique()->nullable()->default(null);
             $table->integer('cantidad')->nullable()->default(null);
             $table->string('sku')->nullable()->default(null);
@@ -29,6 +30,12 @@ return new class extends Migration
             $table->json('models')->nullable()->default(null);
             $table->text('position')->nullable()->default(null);
             $table->boolean('estatus')->nullable()->default(0);
+
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('cascade');
+            $table->foreign('id_marca')->references('id')->on('marcas')->onDelete('cascade');
+            $table->foreign('id_clave_sat')->references('id')->on('claves_sat')->onDelete('cascade');
+            $table->foreign('id_linea')->references('id')->on('lineas')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

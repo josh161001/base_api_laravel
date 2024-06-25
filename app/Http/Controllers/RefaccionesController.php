@@ -21,6 +21,8 @@ class RefaccionesController extends Controller
 
             $query = Refacciones::query();
 
+            $query->with('categorias', 'marcas', 'lineas', 'claves_sat', 'archivos');
+
             // Filtrar por rango de fechas
             if ($request->has('start_date') && $request->has('end_date')) {
                 $start_date = $request->input('start_date');
@@ -62,43 +64,63 @@ class RefaccionesController extends Controller
     public function show($id)
     {
         try {
-            $refaccion = Refacciones::find($id);
+            $refaccion = Refacciones::with('categorias', 'marcas', 'lineas', 'claves_sat', 'archivos')->find($id);
 
             if (!$refaccion) {
                 return response()->json(['message' => 'Refaccion no encontrada'], 404);
             }
-
             return response()->json($refaccion, 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al obtener la refaccion'], 500);
         }
     }
 
-
-    public function store(RefaccionesRequest $request)
+    public function store(Request $request)
     {
         try {
+            // Validación de datos
+            $request->validate([
+                'estatus' => 'required',
+                'modelo' => 'required',
+                'sku' => 'required',
+                'cantidad' => 'required|integer',
+                'descripcion' => 'required',
+                'informacion' => 'required',
+                'herramientas' => 'required',
+                'sintomas_fallas' => 'required',
+                'intercambios' => 'required',
+                'url_multimedia.*' => 'required|mimes:jpeg,png,mp4', // Validación para cada archivo
+            ]);
 
+            // Crear la refacción con los datos validados
             $refaccion = Refacciones::create($request->all());
 
+            // Procesar archivos multimedia
+            if ($request->hasFile('url_multimedia')) {
+                foreach ($request->file('url_multimedia') as $file) {
+                    $file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    $name_file = $file_name . '_' . time() . '.' . $file->getClientOriginalExtension();
 
-            if ($request->hasFile('file')) {
-                foreach ($request->file('file') as $file) {
-                    // Generar una ruta única para almacenar el archivo
-                    $rutaArchivo = $file->store('public/archivos/refacciones');
+                    $path = $file->storeAs('public/archivos', $name_file);
 
-                    // Crear registro en la tabla Archivos
-                    $archivo = new Archivos();
-                    $archivo->id_refaccion = $refaccion->id;
-                    $archivo->url_multimedia = Storage::url($rutaArchivo); // Obtener la URL pública del archivo
-                    $archivo->save();
+                    $url = Storage::url($path);
+
+
+
+                    // crear registro en la tabla archivos
+                    Archivos::create([
+                        'id_refaccion' => $refaccion->id,
+                        'url_multimedia' => $url,
+                        'mime_type' => $file->getClientMimeType(),
+                    ]);
                 }
             }
 
-
+            // Respuesta exitosa
             return response()->json($refaccion, 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error al guardar la refaccion', 'error' => $e], 500);
+            // Captura de errores y respuesta de error
+            return response()->json(['message' => 'Error al guardar la refacción', 'error' => $e->getMessage()], 500);
         }
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\claves_sat;
+use App\Models\Claves_Sat;
 use Illuminate\Http\Request;
 
 class Claves_SATController extends Controller

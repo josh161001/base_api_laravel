@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchivosController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\Claves_SATController;
@@ -25,6 +26,7 @@ Route::get('/refacciones', [RefaccionesController::class, 'index']);
 Route::get('/refacciones/{id}', [RefaccionesController::class, 'show']);
 Route::put('/refacciones/{id}', [RefaccionesController::class, 'update']);
 Route::delete('/refacciones/{id}', [RefaccionesController::class, 'destroy']);
+Route::post('/refacciones/import', [RefaccionesController::class, 'storeExcel']);
 
 
 Route::get('/marcas', [MarcasController::class, 'index']);
@@ -51,4 +53,6 @@ Route::get('/claves_sat/{id}', [Claves_SATController::class, 'show']);
 Route::put('/claves_sat/{id}', [Claves_SATController::class, 'update']);
 Route::delete('/claves_sat/{id}', [Claves_SATController::class, 'destroy']);
 
-Route::post('/importar_refacciones', [RefaccionesController::class, 'importar']);
+
+Route::post('/archivos/{id}', [ArchivosController::class, 'store']);
+Route::delete('/archivos/{id}', [ArchivosController::class, 'destroy']);

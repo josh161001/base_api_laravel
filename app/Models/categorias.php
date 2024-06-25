@@ -5,26 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class categorias extends Model
+class Categorias extends Model
 {
     use HasFactory;
 
-    protected $table = 'categorias';
+    protected $table = 'Categorias';
 
     protected $fillable = [
         'nombre',
         'id_padre',
     ];
 
-    // obtener categorias hijas
+    // obtener Categorias hijas
     public function subcategorias()
     {
-        return $this->hasMany(categorias::class, 'id_padre', 'id')->with('subcategorias');
+        return $this->hasMany(Categorias::class, 'id_padre', 'id')->with('subcategorias');
     }
     // obtener categoria padre
     public function categoria_padre()
     {
-        return $this->belongsTo(categorias::class, 'id_padre', 'id');
+        return $this->belongsTo(Categorias::class, 'id_padre', 'id');
     }
     // obtener refacciones de la categoria
     public function refacciones()

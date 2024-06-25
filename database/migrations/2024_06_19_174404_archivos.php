@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('archivos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_refaccion')->nullable()->constrained('refacciones')->onDelete('cascade');
-
+            $table->unsignedBigInteger('id_refaccion')->nullable();
+            $table->string('mime_type')->nullable();
             $table->string('url_multimedia');
+
+            $table->foreign('id_refaccion')->references('id')->on('refacciones')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

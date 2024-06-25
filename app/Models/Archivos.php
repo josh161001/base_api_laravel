@@ -14,6 +14,7 @@ class Archivos extends Model
     protected $fillable = [
         'id_refaccion',
         'url_multimedia',
+        'mime_type'
     ];
 
 

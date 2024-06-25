@@ -2,21 +2,31 @@
 
 namespace App\Imports;
 
+use App\Models\Categorias;
+use App\Models\Marcas;
 use App\Models\Refacciones;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class RefaccionesImport implements ToModel, WithHeadingRow,  WithBatchInserts, WithChunkReading
+class RefaccionesImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+    private $categorias;
+    private $marcas;
+
+    public function __construct()
+    {
+        $this->categorias = Categorias::pluck('id', 'nombre');
+        $this->marcas = Marcas::pluck('id', 'nombre');
+    }
+
     public function model(array $row)
     {
+        $categoriaId = null;
+
+
 
         $models = $row['models'];
 
@@ -31,10 +41,33 @@ class RefaccionesImport implements ToModel, WithHeadingRow,  WithBatchInserts, W
         $row['models'] = json_encode($models);
 
 
+        // Verificar si la categoría ya existe
+        if (isset($this->categorias[$row['categoria']])) {
+            // Si existe, obtener el ID
+            $categoriaId = $this->categorias[$row['categoria']];
+        } else {
+            $categoria = new Categorias();
+            $categoria->nombre = $row['categoria'];
+            $categoria->save();
 
+            // Actualizar la lista de categorías
+            $this->categorias = Categorias::pluck('id', 'nombre');
+            $categoriaId = $categoria->id;
+        }
+
+        if (isset($this->marcas[$row['marca']])) {
+            $marcaId = $this->marcas[$row['marca']];
+        } else {
+            $marca = new Marcas();
+            $marca->nombre = $row['marca'];
+            $marca->save();
+
+            $this->marcas = Marcas::pluck('id', 'nombre');
+            $marcaId = $marca->id;
+        }
         return new Refacciones([
-            'id_marca' => 1,
-            'id_categoria' => 1,
+            'id_categoria' => $categoriaId,
+            'id_marca' => $marcaId,
             'modelo' => $row['modelo'],
             'descripcion' => $row['descripcion'],
             'models' => $row['models'],

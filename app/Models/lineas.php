@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class lineas extends Model
+class Lineas extends Model
 {
     use HasFactory;
 
-    protected $table = 'lineas';
+    protected $table = 'Lineas';
 
     protected $fillable = [
         'nombre',

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class claves_sat extends Model
+class Claves_Sat extends Model
 {
     use HasFactory;
 
-    protected $table = 'claves_sat';
+    protected $table = 'Claves_Sat';
 
     protected $fillable = [
         'clave',
