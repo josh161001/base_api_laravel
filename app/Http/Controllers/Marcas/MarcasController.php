@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Marcas;
 
+use App\Http\Controllers\Controller;
 use App\Models\Marcas;
 use Illuminate\Http\Request;
 

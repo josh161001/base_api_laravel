@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Refacciones;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RefaccionesRequest;
 use App\Imports\RefaccionesImport;
 use App\Models\Archivos;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Lineas;
 
+use App\Http\Controllers\Controller;
 use App\Models\Lineas;
 use Illuminate\Http\Request;
 

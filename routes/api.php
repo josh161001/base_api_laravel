@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\ArchivosController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoriasController;
-use App\Http\Controllers\Claves_SATController;
-use App\Http\Controllers\LineasController;
-use App\Http\Controllers\MarcasController;
-use App\Http\Controllers\RefaccionesController;
+use App\Http\Controllers\Archivos\ArchivosController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Categorias\CategoriasController;
+use App\Http\Controllers\Claves_SAT\Claves_SATController;
+use App\Http\Controllers\Lineas\LineasController;
+use App\Http\Controllers\Marcas\MarcasController;
+use App\Http\Controllers\Refacciones\RefaccionesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
