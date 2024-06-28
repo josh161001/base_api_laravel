@@ -74,7 +74,7 @@ class ClientesController extends Controller
             $request->validate([
                 'nombre' => 'required',
                 'RFC' => 'required',
-                'json' => 'required|array',
+                'informacion_adicional' => 'required|array',
                 'contacto' => 'required|array',
                 'id_usuario' => 'required',
             ]);
@@ -84,19 +84,19 @@ class ClientesController extends Controller
             $cliente->nombre = $request->nombre;
             $cliente->RFC = $request->RFC;
             $cliente->informacion_adicional = [
-                'calle_no' => $request->json['calle_no'],
-                'colonia' => $request->json['colonia'],
-                'ciudad' => $request->json['ciudad'],
-                'estado' => $request->json['estado'],
-                'pais' => $request->json['pais'],
-                'codigo_postal' => $request->json['codigo_postal'],
-                'forma_pago' => $request->json['forma_pago'],
-                'dias_credito' => $request->json['dias_credito'],
-                'lim_credito' => $request->json['lim_credito'],
-                'dias_bloqueo' => $request->json['dias_bloqueo'],
-                'lista_precios' => $request->json['lista_precios'],
-                'uso_cfdi' => $request->json['uso_cfdi'],
-                'regimen_fiscal' => $request->json['regimen_fiscal'],
+                'calle_no' => $request->informacion_adicional['calle_no'],
+                'colonia' => $request->informacion_adicional['colonia'],
+                'ciudad' => $request->informacion_adicional['ciudad'],
+                'estado' => $request->informacion_adicional['estado'],
+                'pais' => $request->informacion_adicional['pais'],
+                'codigo_postal' => $request->informacion_adicional['codigo_postal'],
+                'forma_pago' => $request->informacion_adicional['forma_pago'],
+                'dias_credito' => $request->informacion_adicional['dias_credito'],
+                'lim_credito' => $request->informacion_adicional['lim_credito'],
+                'dias_bloqueo' => $request->informacion_adicional['dias_bloqueo'],
+                'lista_precios' => $request->informacion_adicional['lista_precios'],
+                'uso_cfdi' => $request->informacion_adicional['uso_cfdi'],
+                'regimen_fiscal' => $request->informacion_adicional['regimen_fiscal'],
             ];
             $cliente->contacto = [
                 'nombre' => $request->contacto['nombre'],
@@ -159,7 +159,7 @@ class ClientesController extends Controller
             $request->validate([
                 'nombre' => 'required',
                 'RFC' => 'required',
-                'json' => 'required|array',
+                'informacion_adicional' => 'required|array',
                 'contacto' => 'required|array',
                 'id_usuario' => 'required',
             ]);
@@ -177,19 +177,19 @@ class ClientesController extends Controller
             $cliente->nombre = $request->nombre;
             $cliente->RFC = $request->RFC;
             $cliente->informacion_adicional = [
-                'calle_no' => $request->json['calle_no'],
-                'colonia' => $request->json['colonia'],
-                'ciudad' => $request->json['ciudad'],
-                'estado' => $request->json['estado'],
-                'pais' => $request->json['pais'],
-                'codigo_postal' => $request->json['codigo_postal'],
-                'forma_pago' => $request->json['forma_pago'],
-                'dias_credito' => $request->json['dias_credito'],
-                'lim_credito' => $request->json['lim_credito'],
-                'dias_bloqueo' => $request->json['dias_bloqueo'],
-                'lista_precios' => $request->json['lista_precios'],
-                'uso_cfdi' => $request->json['uso_cfdi'],
-                'regimen_fiscal' => $request->json['regimen_fiscal'],
+                'calle_no' => $request->informacion_adicional['calle_no'],
+                'colonia' => $request->informacion_adicional['colonia'],
+                'ciudad' => $request->informacion_adicional['ciudad'],
+                'estado' => $request->informacion_adicional['estado'],
+                'pais' => $request->informacion_adicional['pais'],
+                'codigo_postal' => $request->informacion_adicional['codigo_postal'],
+                'forma_pago' => $request->informacion_adicional['forma_pago'],
+                'dias_credito' => $request->informacion_adicional['dias_credito'],
+                'lim_credito' => $request->informacion_adicional['lim_credito'],
+                'dias_bloqueo' => $request->informacion_adicional['dias_bloqueo'],
+                'lista_precios' => $request->informacion_adicional['lista_precios'],
+                'uso_cfdi' => $request->informacion_adicional['uso_cfdi'],
+                'regimen_fiscal' => $request->informacion_adicional['regimen_fiscal'],
             ];
             $cliente->contacto = [
                 'nombre' => $request->contacto['nombre'],

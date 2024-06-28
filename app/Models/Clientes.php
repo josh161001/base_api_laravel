@@ -15,7 +15,7 @@ class Clientes extends Model
         'id_usuario',
         'nombre',
         'RFC',
-        'json',
+        'informacion_adicional',
         'contacto',
         'fecha_reg',
         'observaciones',
