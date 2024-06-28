@@ -166,7 +166,9 @@ class RefaccionesController extends Controller
                 return response()->json(['message' => 'Refaccion no encontrada'], 404);
             }
 
-            $refaccion->delete();
+            $refaccion->estatus = 0;
+
+            $refaccion->save();
 
             return response()->json(['message' => 'Refaccion eliminada'], 200);
         } catch (\Exception $e) {

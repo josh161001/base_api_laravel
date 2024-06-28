@@ -4,9 +4,12 @@ use App\Http\Controllers\Archivos\ArchivosController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Categorias\CategoriasController;
 use App\Http\Controllers\Claves_SAT\Claves_SATController;
+use App\Http\Controllers\Clientes\ClientesController;
 use App\Http\Controllers\Lineas\LineasController;
 use App\Http\Controllers\Marcas\MarcasController;
+use App\Http\Controllers\Pruueba\PruebaController;
 use App\Http\Controllers\Refacciones\RefaccionesController;
+use App\Http\Controllers\Vehiculos\VehiculosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +59,15 @@ Route::delete('/claves_sat/{id}', [Claves_SATController::class, 'destroy']);
 
 Route::post('/archivos/{id}', [ArchivosController::class, 'store']);
 Route::delete('/archivos/{id}', [ArchivosController::class, 'destroy']);
+
+
+
+Route::get('/vehiculos', [VehiculosController::class, 'index']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+});
+Route::get('/clientes', [ClientesController::class, 'index']);
+Route::post('/clientes', [ClientesController::class, 'store']);
+Route::get('/clientes/{id}', [ClientesController::class, 'show']);
+Route::put('/clientes/{id}', [ClientesController::class, 'update']);
+Route::delete('/clientes/{id}', [ClientesController::class, 'destroy']);
