@@ -14,7 +14,7 @@ class Claves_SATController extends Controller
         try {
             $claves_sat = Claves_Sat::all();
 
-            if (!$claves_sat) {
+            if ($claves_sat->isEmpty()) {
                 return response()->json(['message' => 'No se encontraron claves SAT'], 404);
             }
 
