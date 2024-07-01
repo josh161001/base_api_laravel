@@ -9,7 +9,7 @@ class Lineas extends Model
 {
     use HasFactory;
 
-    protected $table = 'Lineas';
+    protected $table = 'lineas';
 
     protected $fillable = [
         'nombre',

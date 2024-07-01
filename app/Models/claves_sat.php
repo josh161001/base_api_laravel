@@ -9,7 +9,7 @@ class Claves_Sat extends Model
 {
     use HasFactory;
 
-    protected $table = 'Claves_Sat';
+    protected $table = 'claves_sat';
 
     protected $fillable = [
         'clave',
