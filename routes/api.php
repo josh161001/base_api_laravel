@@ -50,11 +50,11 @@ Route::get('/lineas/{id}', [LineasController::class, 'show']);
 Route::put('/lineas/{id}', [LineasController::class, 'update']);
 Route::delete('/lineas/{id}', [LineasController::class, 'destroy']);
 
-Route::get('/claves_sat', [Claves_SATController::class, 'index']);
-Route::post('/claves_sat', [Claves_SATController::class, 'store']);
-Route::get('/claves_sat/{id}', [Claves_SATController::class, 'show']);
-Route::put('/claves_sat/{id}', [Claves_SATController::class, 'update']);
-Route::delete('/claves_sat/{id}', [Claves_SATController::class, 'destroy']);
+Route::get('/claves-sat', [Claves_SATController::class, 'index']);
+Route::post('/claves-sat', [Claves_SATController::class, 'store']);
+Route::get('/claves-sat/{id}', [Claves_SATController::class, 'show']);
+Route::put('/claves-sat/{id}', [Claves_SATController::class, 'update']);
+Route::delete('/claves-sat/{id}', [Claves_SATController::class, 'destroy']);
 
 
 Route::post('/archivos/{id}', [ArchivosController::class, 'store']);

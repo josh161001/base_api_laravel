@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Categorias;
 
 use App\Http\Controllers\Controller;
-use App\Models\categorias;
+use App\Models\Categorias;
 use Illuminate\Http\Request;
 
 class CategoriasController extends Controller
@@ -13,7 +13,12 @@ class CategoriasController extends Controller
     public function index()
     {
         try {
-            $categorias = categorias::whereNull('id_padre')->with('subcategorias')->get();
+            $categorias = Categorias::whereNull('id_padre')->with('subcategorias')->get();
+
+            if ($categorias->isEmpty()) {
+                return response()->json(['message' => 'No hay categorias registradas'], 404);
+            }
+
             return response()->json($categorias);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
@@ -23,7 +28,7 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         try {
-            $categoria = new categorias();
+            $categoria = new Categorias();
             $categoria->nombre = $request->nombre;
             $categoria->id_padre = $request->id_padre;
             $categoria->save();
@@ -37,7 +42,12 @@ class CategoriasController extends Controller
     public function show($id)
     {
         try {
-            $categoria = categorias::find($id);
+            $categoria = Categorias::find($id);
+
+            if (!$categoria) {
+                return response()->json(['message' => 'Categoria no encontrada'], 404);
+            }
+
             return response()->json($categoria);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
@@ -47,7 +57,12 @@ class CategoriasController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $categoria = categorias::find($id);
+            $categoria = Categorias::find($id);
+
+            if (!$categoria) {
+                return response()->json(['message' => 'Categoria no encontrada'], 404);
+            }
+
             $categoria->nombre = $request->nombre;
             $categoria->id_padre = $request->id_padre;
             $categoria->save();
@@ -60,7 +75,12 @@ class CategoriasController extends Controller
     public function destroy($id)
     {
         try {
-            $categoria = categorias::find($id);
+            $categoria = Categorias::find($id);
+
+            if (!$categoria) {
+                return response()->json(['message' => 'Categoria no encontrada'], 404);
+            }
+
             $categoria->delete();
             return response()->json(['message' => 'Categoria eliminada']);
         } catch (\Exception $e) {

@@ -12,7 +12,12 @@ class Claves_SATController extends Controller
     public function index()
     {
         try {
-            $claves_sat = claves_sat::all();
+            $claves_sat = Claves_Sat::all();
+
+            if (!$claves_sat) {
+                return response()->json(['message' => 'No se encontraron claves SAT'], 404);
+            }
+
             return response()->json($claves_sat);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al obtener las claves SAT', 'error' => $e], 500);
@@ -22,7 +27,7 @@ class Claves_SATController extends Controller
     public function store(Request $request)
     {
         try {
-            $clave_sat = new claves_sat();
+            $clave_sat = new Claves_Sat();
             $clave_sat->clave = $request->clave;
             $clave_sat->save();
 
@@ -36,7 +41,7 @@ class Claves_SATController extends Controller
     public function show($id)
     {
         try {
-            $clave_sat = claves_sat::find($id);
+            $clave_sat = Claves_Sat::find($id);
 
             if (!$clave_sat) {
                 return response()->json(['message' => 'Clave SAT no encontrada'], 404);
@@ -51,7 +56,7 @@ class Claves_SATController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $clave_sat = claves_sat::find($id);
+            $clave_sat = Claves_Sat::find($id);
 
             if (!$clave_sat) {
                 return response()->json(['message' => 'Clave SAT no encontrada'], 404);
@@ -68,7 +73,7 @@ class Claves_SATController extends Controller
     public function destroy($id)
     {
         try {
-            $clave_sat = claves_sat::find($id);
+            $clave_sat = Claves_Sat::find($id);
 
             if (!$clave_sat) {
                 return response()->json(['message' => 'Clave SAT no encontrada'], 404);

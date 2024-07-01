@@ -15,7 +15,12 @@ class MarcasController extends Controller
 
         try {
 
-            $marcas =  marcas::all();
+            $marcas =  Marcas::all();
+
+            if ($marcas->isEmpty()) {
+                return response()->json(['message' => 'No hay marcas registradas'], 404);
+            }
+
             return response()->json($marcas);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al obtener las marcas', 'error' => $e], 500);
@@ -25,7 +30,7 @@ class MarcasController extends Controller
     public function store(Request $request)
     {
         try {
-            $marca = new marcas();
+            $marca = new Marcas();
             $marca->nombre = $request->nombre;
             $marca->save();
             return response()->json($marca);
@@ -37,7 +42,7 @@ class MarcasController extends Controller
     public function show($id)
     {
         try {
-            $marca = marcas::find($id);
+            $marca = Marcas::find($id);
 
             if (!$marca) {
                 return response()->json(['message' => 'Marca no encontrada'], 404);
@@ -52,7 +57,7 @@ class MarcasController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $marca = marcas::find($id);
+            $marca = Marcas::find($id);
 
             if (!$marca) {
                 return response()->json(['message' => 'Marca no encontrada'], 404);
@@ -68,7 +73,7 @@ class MarcasController extends Controller
     public function destroy($id)
     {
         try {
-            $marca = marcas::find($id);
+            $marca = Marcas::find($id);
 
             if (!$marca) {
                 return response()->json(['message' => 'Marca no encontrada'], 404);
